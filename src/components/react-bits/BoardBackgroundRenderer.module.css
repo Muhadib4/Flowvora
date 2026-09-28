@@ -1,0 +1,38 @@
+.root {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  contain: strict;
+  isolation: isolate;
+  pointer-events: none;
+}
+
+.layer,
+.fallback,
+.readability {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.fallback {
+  background: var(--rb-fallback, #0b0d10);
+}
+
+.readability {
+  z-index: 2;
+  background:
+    linear-gradient(rgb(7 9 12 / var(--rb-overlay-opacity, 0.28)), rgb(7 9 12 / var(--rb-overlay-opacity, 0.28))),
+    radial-gradient(circle at 50% 12%, transparent 0 32%, rgb(5 7 10 / 0.14) 100%);
+}
+
+@media (prefers-color-scheme: light) {
+  .readability {
+    background:
+      linear-gradient(rgb(248 250 252 / var(--rb-overlay-opacity, 0.2)), rgb(248 250 252 / var(--rb-overlay-opacity, 0.2))),
+      radial-gradient(circle at 50% 12%, transparent 0 34%, rgb(228 233 240 / 0.12) 100%);
+  }
+}

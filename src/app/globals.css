@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --background: #f5f7f9;
+  --surface: #ffffff;
+  --surface-raised: #fafbfc;
+  --surface-hover: #f0f3f6;
+  --surface-strong: #e9edf2;
+  --border: #e1e6ec;
+  --border-strong: #cbd3dd;
+  --foreground: #15191f;
+  --secondary: #5e6875;
+  --muted: #8a94a3;
+  --accent: #6677e8;
+  --accent-hover: #5668dc;
+  --accent-soft: #e9ebff;
+  --accent-contrast: #ffffff;
+  --positive: #2e8b6d;
+  --positive-soft: #e4f3ed;
+  --warning: #a96f19;
+  --warning-soft: #fff1d5;
+  --danger: #c74747;
+  --danger-soft: #fde8e8;
+  --focus-ring: #6677e8;
+  --shadow-color: 214 30% 16%;
+  --sidebar-width: 248px;
+  --sidebar-collapsed-width: 76px;
+  --header-height: 64px;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #0b0d10;
+  --surface: #11151b;
+  --surface-raised: #171c23;
+  --surface-hover: #1d232c;
+  --surface-strong: #222a34;
+  --border: #252c36;
+  --border-strong: #35404d;
+  --foreground: #f5f7fa;
+  --secondary: #9aa4b2;
+  --muted: #697586;
+  --accent: #7b8cff;
+  --accent-hover: #94a0ff;
+  --accent-soft: rgba(123, 140, 255, 0.14);
+  --accent-contrast: #0b0d10;
+  --positive: #65c9a8;
+  --positive-soft: rgba(101, 201, 168, 0.12);
+  --warning: #d7a858;
+  --warning-soft: rgba(215, 168, 88, 0.12);
+  --danger: #e06b6b;
+  --danger-soft: rgba(224, 107, 107, 0.12);
+  --focus-ring: #8c9aff;
+  --shadow-color: 0 0% 0%;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-strong: var(--surface-strong);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-positive: var(--positive);
+  --color-positive-soft: var(--positive-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --radius-sm: 6px;
+  --radius-md: 9px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+* {
+  border-color: var(--border);
+  scrollbar-color: var(--border-strong) transparent;
+  scrollbar-width: thin;
+}
+
+html {
+  min-width: 320px;
+  background: var(--background);
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+textarea:disabled,
+select:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  input,
+  select {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.surface-shadow {
+  box-shadow:
+    0 1px 1px hsl(var(--shadow-color) / 0.06),
+    0 8px 28px hsl(var(--shadow-color) / 0.08);
+}
+
+.panel {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 1px 2px hsl(var(--shadow-color) / 0.04);
+}
+
+.subtle-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--border) 45%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--border) 45%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.flow-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.flow-scrollbar::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--border-strong);
+  background-clip: padding-box;
+}
+
+.flow-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sr-only-focusable {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
+  transform: translateY(-150%);
+  border-radius: 8px;
+  background: var(--surface);
+  padding: 10px 14px;
+  color: var(--foreground);
+  transition: transform 150ms ease;
+}
+
+.sr-only-focusable:focus {
+  transform: translateY(0);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.touch-pan-x {
+  touch-action: pan-x;
+}
+
+.app-noise::after {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  content: "";
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes dialogIn {
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.98); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes dialogOut {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -48%) scale(0.98); }
+}
+
+@keyframes sheetIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes sheetOut {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes loadingBar {
+  0% { transform: translateX(-110%); }
+  50% { transform: translateX(60%); }
+  100% { transform: translateX(220%); }
+}
