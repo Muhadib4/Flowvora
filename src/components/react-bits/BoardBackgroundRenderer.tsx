@@ -126,17 +126,14 @@ export default function BoardBackgroundRenderer({
   const [rootRef, isVisible] = useIsVisible<HTMLDivElement>();
   const systemReducedMotion = useReducedMotion();
   const shouldReduceMotion = reducedMotion ?? systemReducedMotion;
-  const [failedType, setFailedType] = useState<MotionBackgroundType | null>(null);
-
-  useEffect(() => {
-    setFailedType(null);
-  }, [background.type]);
+  const backgroundKey = isMotionBackground(background) ? `${background.type}:${background.preset ?? 'default'}` : background.type;
+  const [failedKey, setFailedKey] = useState<string | null>(null);
 
   const handleEffectError = useCallback(() => {
     if (!isMotionBackground(background)) return;
-    setFailedType(background.type);
+    setFailedKey(backgroundKey);
     onEffectError?.(background.type);
-  }, [background, onEffectError]);
+  }, [background, backgroundKey, onEffectError]);
 
   let fallback = '#0B0D10';
   let content: ReactNode = null;
@@ -147,7 +144,7 @@ export default function BoardBackgroundRenderer({
     const preset = MOTION_PRESETS[background.type];
     const colors = background.colors ?? preset.colors;
     fallback = background.fallback ?? preset.fallback;
-    const canAnimate = motionEnabled && !shouldReduceMotion && isVisible && failedType !== background.type;
+    const canAnimate = motionEnabled && !shouldReduceMotion && isVisible && failedKey !== backgroundKey;
 
     if (canAnimate) {
       const visualProps = {

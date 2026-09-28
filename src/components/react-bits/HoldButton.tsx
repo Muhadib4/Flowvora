@@ -57,7 +57,9 @@ export function HoldButton({
   const didCompleteRef = useRef(false);
   const disabledRef = useRef(disabled);
   const statusId = useId();
-  disabledRef.current = disabled;
+  useEffect(() => {
+    disabledRef.current = disabled;
+  }, [disabled]);
   const safeDuration =
     Number.isFinite(holdDuration) && holdDuration >= MINIMUM_HOLD_DURATION
       ? holdDuration

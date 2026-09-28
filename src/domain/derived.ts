@@ -485,7 +485,10 @@ export function searchFlowvora(data: FlowvoraData, query: string, limit = 20): S
   return results
     .sort((left, right) => left.rank - right.rank || left.title.localeCompare(right.title))
     .slice(0, Math.max(0, limit))
-    .map(({ rank: _rank, ...result }) => result);
+    .map(({ rank, ...result }) => {
+      void rank;
+      return result;
+    });
 }
 
 function comparePositionThenCreated<T extends { position: number; createdAt: string; id: string }>(
@@ -494,4 +497,3 @@ function comparePositionThenCreated<T extends { position: number; createdAt: str
 ): number {
   return left.position - right.position || left.createdAt.localeCompare(right.createdAt) || left.id.localeCompare(right.id);
 }
-
